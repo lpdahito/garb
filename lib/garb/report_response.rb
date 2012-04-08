@@ -1,6 +1,6 @@
 module Garb
   class ReportResponse
-    KEYS = ['dxp$metric', 'dxp$dimension']
+    KEYS = ['dxp:metric', 'dxp:dimension']
 
     def initialize(response_body, instance_klass = OpenStruct)
       @data = response_body
@@ -42,7 +42,7 @@ module Garb
     end
 
     def parsed_data
-      @parsed_data ||= JSON.parse(@data)
+      @parsed_data ||= Crack::XML.parse(@data)
     end
 
     def feed?
